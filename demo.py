@@ -70,9 +70,9 @@ def demo(opt):
                     pred_max_prob = pred_max_prob[:pred_EOS]
 
                 confidence_score = pred_max_prob.cumprod(dim=0)[-1]
-                extraction_time = int(time.time())  # Unix timestamp
-
-                log.write(f"{img_name.split('/')[-1]}\t{pred}\t{confidence_score:.4f}\t{extraction_time}\n")
+                if confidence_score >= 0.9:
+                    extraction_time = int(time.time())  # Unix timestamp
+                    log.write(f"{img_name.split('/')[-1]}\t{pred}\t{confidence_score:.4f}\t{extraction_time}\n")
 
     print(f"Results saved to {output_file_path}")
 
